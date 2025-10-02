@@ -8,7 +8,7 @@ import { trpc } from '../lib/trpc';
 export function CredentialVerifyPage() {
   const navigateTo = useNavigate();
   const [isValid, setIsValid] = useState<boolean | null>(null);
-  const verifiyCredential = trpc.verifyCredential.useMutation();
+  const verifyCredential = trpc.verifyCredential.useMutation();
   const handleSubmit = async (formEvent: React.FormEvent<HTMLFormElement>) => {
     formEvent.preventDefault();
     setIsValid(null);
@@ -18,7 +18,7 @@ export function CredentialVerifyPage() {
       const credentialJson = textarea.value;
       try {
         const credential = JSON.parse(credentialJson);
-        const response = await verifiyCredential.mutateAsync(credential);
+        const response = await verifyCredential.mutateAsync(credential);
         setIsValid(response.isValid);
       } catch (error) {
         console.error('Invalid JSON:', error);
