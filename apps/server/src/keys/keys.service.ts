@@ -38,12 +38,6 @@ export class KeysService {
     }
   }
 
-  // private writeFile(keys: Keys) {
-  //   const parsedKeys = keysSchema.parse(keys);
-  //   this.cache = parsedKeys;
-  //   fs.writeFileSync(this.filePath, JSON.stringify(parsedKeys, null, 2));
-  // }
-
   async getById(id: string): Promise<KeyPair | null> {
     const keys = this.readFile();
     if (!keys || !keys[id]) return null;
