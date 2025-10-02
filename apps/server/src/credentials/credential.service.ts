@@ -172,7 +172,7 @@ export class CredentialsService {
 
     //check if subject exists
     const subjectId = vc.credentialSubject.id || '';
-    if (subjectId) this.getKeyPairById(subjectId);
+    if (subjectId) await this.getKeyPairById(subjectId);
 
     const now = new Date();
     const issuance = new Date(core.issuanceDate);

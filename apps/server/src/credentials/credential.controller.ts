@@ -21,13 +21,13 @@ export class CredentialsController {
     return this.credentialsService.getById(id);
   }
 
-  @Post()
+  @Post('create')
   async create(@Body() body: CreateVCInput) {
     const parsedBody = createVCSchema.parse(body);
     return await this.credentialsService.create(parsedBody);
   }
 
-  @Post()
+  @Post('verify')
   async verify(@Body() body: VerifiableCredential) {
     const parsedBody = VerifiableCredentialSchema.parse(body);
     return await this.credentialsService.verify(parsedBody);
