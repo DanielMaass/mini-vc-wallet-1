@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import * as express from 'express';
 import 'reflect-metadata';
-import { AppModule } from './app.module';
-import { TasksService } from './tasks/tasks.service';
-import { appRouter } from './trpc/trpc';
+import { AppModule } from './app.module.js';
+import { CredentialsService } from './credentials/credential.service.js';
+import { KeysService } from './keys/keys.service.js';
+import { appRouter } from './trpc/trpc.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +20,8 @@ async function bootstrap() {
     createExpressMiddleware({
       router: appRouter,
       createContext: () => ({
-        tasksService: app.get(TasksService),
+        credentialsService: app.get(CredentialsService),
+        keysService: app.get(KeysService),
       }),
     }),
   );
