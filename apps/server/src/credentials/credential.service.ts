@@ -170,7 +170,7 @@ export class CredentialsService {
       throw new Error('Credential payload has been tampered with');
     }
 
-    //check if subject exists
+    // check if subject exists
     const subjectId = vc.credentialSubject.id || '';
     if (subjectId) await this.getKeyPairById(subjectId);
 
