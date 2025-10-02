@@ -10,7 +10,7 @@ export class KeysController {
     return this.keysService.getAllPublicKeys();
   }
 
-  @Get()
+  @Get('ids')
   async listIds() {
     return this.keysService.getAllIds();
   }
