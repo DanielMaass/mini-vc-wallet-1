@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@mini-vc-wallet-1/server': path.resolve(__dirname, '../server/src'),
     },
   },
   server: {

@@ -1,0 +1,62 @@
+{
+  "did:example:person-1": {
+    "publicJwk": {
+      "crv": "Ed25519",
+      "x": "QTJGLXJb-zA4_uQoquTRoX_DvvqUs7kRFgguun939pY",
+      "kty": "OKP",
+      "kid": "person-1-key-1"
+    },
+    "privateJwk": {
+      "crv": "Ed25519",
+      "d": "vkasnUgl8VQ3sVj56JoAi21H9R4F4mlNwvpRkdQY-w4",
+      "x": "QTJGLXJb-zA4_uQoquTRoX_DvvqUs7kRFgguun939pY",
+      "kty": "OKP",
+      "kid": "person-1-key-1"
+    }
+  },
+  "did:example:person-2": {
+    "publicJwk": {
+      "crv": "Ed25519",
+      "x": "u_fy0sG3a3AzFOMYvuj6z8j5183aM8MF0T2s9XCkXJ4",
+      "kty": "OKP",
+      "kid": "person-2-key-1"
+    },
+    "privateJwk": {
+      "crv": "Ed25519",
+      "d": "8YjZ-tveNpyXp3aURBN66BizSoflmLtzv1XnVooavxY",
+      "x": "u_fy0sG3a3AzFOMYvuj6z8j5183aM8MF0T2s9XCkXJ4",
+      "kty": "OKP",
+      "kid": "person-2-key-1"
+    }
+  },
+  "did:example:company-1": {
+    "publicJwk": {
+      "crv": "Ed25519",
+      "x": "81earV4WSKLjhQzhBtP3sOE7jnmM1C2fAFITX-C3-B8",
+      "kty": "OKP",
+      "kid": "company-1-key-1"
+    },
+    "privateJwk": {
+      "crv": "Ed25519",
+      "d": "nqhvWEeu5oobVU_u2lLikafsRSx0szY0n1xeLeTza0o",
+      "x": "81earV4WSKLjhQzhBtP3sOE7jnmM1C2fAFITX-C3-B8",
+      "kty": "OKP",
+      "kid": "company-1-key-1"
+    }
+  },
+  "did:example:company-2": {
+    "publicJwk": {
+      "crv": "Ed25519",
+      "x": "q1UycUxi9Riah_DD0I1Z-qvSJG_I4ZCTc_QsT2IHkFM",
+      "kty": "OKP",
+      "kid": "company-2-key-1"
+    },
+    "privateJwk": {
+      "crv": "Ed25519",
+      "d": "xPsZAmDD1l8E-UZ3sbsZqbDmdv18C3CH19ZOKK_bMq8",
+      "x": "q1UycUxi9Riah_DD0I1Z-qvSJG_I4ZCTc_QsT2IHkFM",
+      "kty": "OKP",
+      "kid": "company-2-key-1"
+    }
+  }
+}
