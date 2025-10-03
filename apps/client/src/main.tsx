@@ -3,10 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './global.css';
-import { createTrpcClient, trpc } from './lib/trpc';
+import { trpc } from '@/lib/trpc';
 
 const queryClient = new QueryClient();
-const trpcClient = createTrpcClient();
+const baseUrl = import.meta.env.VITE_API_BASE ?? 'http://localhost:3000';
+const trpcClient = trpc.createClient({
+  links: [trpc.loggerLink(), trpc.httpBatchLink({ url: `${baseUrl}/trpc` })],
+} as any);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

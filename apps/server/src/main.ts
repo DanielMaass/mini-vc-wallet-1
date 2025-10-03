@@ -5,7 +5,7 @@ import 'reflect-metadata';
 import { AppModule } from './app.module.js';
 import { CredentialsService } from './credentials/credential.service.js';
 import { KeysService } from './keys/keys.service.js';
-import { appRouter } from './trpc/trpc.js';
+import { appRouter } from './trpc/router.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

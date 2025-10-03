@@ -1,17 +1,17 @@
 {
-  "name": "server",
+  "name": "@server/app",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm start:dev",
-    "start": "node --enable-source-maps dist/main.js",
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
     "build": "nest build",
-    "lint": "eslint 'src/**/*.ts'",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
+    "@mini-vc-wallet-1/trpc": "workspace:*",
+    "@mini-vc-wallet-1/contracts": "workspace:*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",

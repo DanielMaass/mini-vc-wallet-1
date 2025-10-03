@@ -2,19 +2,16 @@
   "name": "mini-vc-wallet-1",
   "private": true,
   "version": "0.1.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build",
-    "lint": "pnpm -r lint",
+    "build": "tsc -b",
+    "dev": "pnpm -r --parallel --filter ./apps... run dev",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
     "format": "prettier --write .",
-    "typecheck": "pnpm -r typecheck"
+    "clean": "git clean -xdf -e node_modules"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

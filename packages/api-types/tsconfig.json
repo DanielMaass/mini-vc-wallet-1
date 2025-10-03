@@ -5,9 +5,9 @@
     "outDir": "dist",
     "declaration": true,
     "declarationMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
   "include": ["src"],
-  "references": [{ "path": "../../packages/contracts" }]
+  "references": [{ "path": "../../apps/server" }]
 }
