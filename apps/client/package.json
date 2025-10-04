@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@client/app",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -11,9 +11,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@mini-vc-wallet-1/api-types": "workspace:*",
-    "@mini-vc-wallet-1/contracts": "workspace:*",
     "@mini-vc-wallet-1/trpc": "workspace:*",
+    "@mini-vc-wallet-1/contracts": "workspace:*",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
