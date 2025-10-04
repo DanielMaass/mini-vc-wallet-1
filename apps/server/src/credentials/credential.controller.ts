@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import {
   CreateVCInput,
   createVCSchema,
   VerifiableCredential,
   VerifiableCredentialSchema,
-} from './credential.entity.js';
+} from '@mini-vc-wallet-1/contracts';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CredentialsService } from './credential.service.js';
 
 @Controller('credentials')

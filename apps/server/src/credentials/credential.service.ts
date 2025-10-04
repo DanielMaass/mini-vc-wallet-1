@@ -1,3 +1,8 @@
+import {
+  CreateVCInput,
+  type VerifiableCredential,
+  VerifiableCredentialSchema,
+} from '@mini-vc-wallet-1/contracts';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as fs from 'fs';
@@ -6,11 +11,6 @@ import { canonicalize } from 'json-canonicalize';
 import * as path from 'path';
 import z from 'zod';
 import { KeysService } from '../keys/keys.service.js';
-import {
-  CreateVCInput,
-  type VerifiableCredential,
-  VerifiableCredentialSchema,
-} from './credential.entity.js';
 
 @Injectable()
 export class CredentialsService {
@@ -44,7 +44,7 @@ export class CredentialsService {
       const parsed = z.array(VerifiableCredentialSchema).parse(data);
       this.cache = parsed;
       return parsed;
-    } catch (error) {
+    } catch (error: unknown) {
       this.cache = [];
       return this.cache;
     }
@@ -142,7 +142,11 @@ export class CredentialsService {
 
   async verify(
     vc: VerifiableCredential,
-  ): Promise<{ isValid: boolean; payload: any; protectedHeader: CompactJWSHeaderParameters }> {
+  ): Promise<{
+    isValid: boolean;
+    payload: Record<string, string>;
+    protectedHeader: CompactJWSHeaderParameters;
+  }> {
     const { proof, ...core } = vc;
     const [issuerId, kid] = proof.verificationMethod.split('#');
 

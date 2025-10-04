@@ -1,9 +1,9 @@
 {
   "files": [],
   "references": [
+    { "path": "packages/contracts" },
     { "path": "packages/trpc" },
     { "path": "apps/server" },
-    { "path": "packages/contracts" },
     { "path": "apps/client" }
   ]
 }

@@ -1,5 +1,5 @@
 import { trpc } from '@/lib/trpc';
-import type { VerifiableCredential } from '@mini-vc-wallet-1/server/credentials/credential.entity';
+import type { VerifiableCredential } from '@mini-vc-wallet-1/contracts';
 import { Trash } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -14,8 +14,8 @@ export function CredentialsPage() {
       utils.listCredentials.invalidate();
       toast.success('Credential deleted successfully');
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: (error: unknown) => {
+      toast.error((error as Error).message);
     },
   });
 

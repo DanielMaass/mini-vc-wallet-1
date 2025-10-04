@@ -20,7 +20,7 @@ export function CredentialVerifyPage() {
         const credential = JSON.parse(credentialJson);
         const response = await verifyCredential.mutateAsync(credential);
         setIsValid(response.isValid);
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Invalid JSON:', error);
       }
     }

@@ -1,1 +1,1 @@
-export * as user from './user.js';
+export * from './credentials.js';

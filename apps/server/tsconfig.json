@@ -1,19 +1,20 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
-
-    "composite": true,
-    "outDir": "dist",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@mini-vc-wallet-1/trpc/server": ["../../packages/trpc/server.d.ts"],
+      "@mini-vc-wallet-1/trpc/client": ["../../packages/trpc/client.d.ts"],
+      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/index.d.ts"]
+    }
   },
-  "include": ["src"],
-  "references": [{ "path": "../../packages/contracts" }]
+  "include": ["src"]
 }

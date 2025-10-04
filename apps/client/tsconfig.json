@@ -10,9 +10,10 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@mini-vc-wallet-1/trpc/client": ["../../packages/trpc/dist/client.d.ts"],
+      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/dist/index.d.ts"]
     }
   },
-  "include": ["src", "vite-env.d.ts"],
-  "references": [{ "path": "../../packages/trpc" }, { "path": "../../packages/contracts" }]
+  "include": ["src", "vite-env.d.ts"]
 }

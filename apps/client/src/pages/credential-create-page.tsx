@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { CreateVCInput } from '@mini-vc-wallet-1/server/credentials/credential.entity';
-import { createVCSchema } from '@mini-vc-wallet-1/server/credentials/credential.entity';
+import { type CreateVCInput, createVCSchema } from '@mini-vc-wallet-1/contracts';
 import { ArrowLeft, Plus, Trash } from 'lucide-react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +48,7 @@ export function CredentialCreatePage() {
       await createCredential.mutate(data);
       toast.success('Credential successfully created');
       navigateTo('/');
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to create credential:', error);
     }
   };

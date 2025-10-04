@@ -1,11 +1,11 @@
-import { createTRPC } from '@mini-vc-wallet-1/trpc/server';
-import z from 'zod';
 import {
   CreateVCInput,
   createVCSchema,
   VerifiableCredential,
   VerifiableCredentialSchema,
-} from '../credentials/credential.entity.js';
+} from '@mini-vc-wallet-1/contracts';
+import { createTRPC } from '@mini-vc-wallet-1/trpc/server';
+import z from 'zod';
 import { CredentialsService } from '../credentials/credential.service.js';
 import { KeysService } from '../keys/keys.service.js';
 

@@ -44,9 +44,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.63.0(react@18.3.1))
-      '@mini-vc-wallet-1/api-types':
-        specifier: workspace:*
-        version: link:../../packages/api-types
       '@mini-vc-wallet-1/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -105,6 +102,9 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@server/app':
+        specifier: workspace:*
+        version: link:../server
       '@types/react':
         specifier: ^18.2.37
         version: 18.3.25
@@ -209,12 +209,6 @@ importers:
         specifier: ^5.4.0
         version: 5.9.3
 
-  packages/api-types:
-    dependencies:
-      '@server/app':
-        specifier: workspace:*
-        version: link:../../apps/server
-
   packages/contracts:
     dependencies:
       zod:
@@ -238,10 +232,6 @@ importers:
       react:
         specifier: '>=18'
         version: 18.3.1
-    devDependencies:
-      '@mini-vc-wallet-1/api-types':
-        specifier: workspace:*
-        version: link:../api-types
 
 packages:
 
