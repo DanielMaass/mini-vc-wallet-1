@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "composite": true,
     "outDir": "dist",
     "jsx": "react-jsx",
@@ -12,7 +13,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@mini-vc-wallet-1/trpc/client": ["../../packages/trpc/dist/client.d.ts"],
-      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/dist/index.d.ts"]
+      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/dist/index.d.ts"],
+      "@server/app": ["../server/dist/index.d.ts"]
     }
   },
   "include": ["src", "vite-env.d.ts"]
