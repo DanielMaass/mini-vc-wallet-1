@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import { KeyPair, Keys, keysSchema, type publicJwk } from './keys.entity.js';
@@ -9,7 +9,20 @@ export class KeysService {
   private cache: Keys | null = null;
 
   constructor() {
-    this.filePath = path.resolve(process.cwd(), 'data', 'keys.json');
+    const configured = process.env.KEYS_FILE;
+    const safeBaseDir = path.resolve(process.cwd(), 'data');
+    let candidatePath = configured
+      ? path.resolve(configured)
+      : path.resolve(safeBaseDir, 'keys.json');
+    // Validate that candidatePath is within safeBaseDir
+    if (!candidatePath.startsWith(safeBaseDir + path.sep)) {
+      Logger.warn(
+        `KEYS_FILE path (${candidatePath}) is outside the allowed directory (${safeBaseDir}). Falling back to default.`,
+        'KeysService',
+      );
+      candidatePath = path.resolve(safeBaseDir, 'keys.json');
+    }
+    this.filePath = candidatePath;
     this.ensureDir();
   }
 
@@ -32,7 +45,13 @@ export class KeysService {
       const parsed = keysSchema.parse(json);
       this.cache = parsed;
       return parsed;
-    } catch {
+    } catch (error: unknown) {
+      Logger.warn(
+        `Failed to read or parse keys file at ${this.filePath}: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+        'KeysService',
+      );
       this.cache = {};
       return this.cache;
     }
@@ -49,7 +68,7 @@ export class KeysService {
     return Object.keys(keys);
   }
 
-  async getAllPublicKeys(): Promise<Record<string, publicJwk> | null> {
+  async getAllPublicKeys(): Promise<Record<string, publicJwk>> {
     const keys = this.readFile();
     const publicKeys = Object.entries(keys).reduce<Record<string, publicJwk>>(
       (acc, [id, value]) => {

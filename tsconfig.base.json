@@ -1,21 +1,12 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
+    "lib": ["ES2022"],
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "useUnknownInCatchVariables": false,
-    "baseUrl": ".",
-    "paths": {
-      "@mini-vc-wallet-1/server": ["apps/server/src/index.ts"],
-      "@mini-vc-wallet-1/server/*": ["apps/server/src/*"]
-    }
-  },
-  "exclude": ["node_modules", "dist"]
+    "noEmit": false,
+    "declaration": true,
+    "skipLibCheck": true
+  }
 }

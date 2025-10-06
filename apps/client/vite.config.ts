@@ -7,15 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@mini-vc-wallet-1/server': path.resolve(__dirname, '../server/src'),
     },
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000', // Nest Server
-        changeOrigin: true,
-      },
-    },
-  },
+  server: { port: 5173 },
 });

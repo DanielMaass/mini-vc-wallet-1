@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  CreateVCInput,
+  type VerifiableCredential,
+  VerifiableCredentialSchema,
+} from '@mini-vc-wallet-1/contracts';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as fs from 'fs';
 import { CompactJWSHeaderParameters, CompactSign, compactVerify, importJWK } from 'jose';
@@ -6,16 +11,12 @@ import { canonicalize } from 'json-canonicalize';
 import * as path from 'path';
 import z from 'zod';
 import { KeysService } from '../keys/keys.service.js';
-import {
-  CreateVCInput,
-  type VerifiableCredential,
-  VerifiableCredentialSchema,
-} from './credential.entity.js';
 
 @Injectable()
 export class CredentialsService {
   private filePath: string;
   private cache: VerifiableCredential[] | null = null;
+  // jose importJWK returns different key types depending on runtime; use a permissive cache type
 
   constructor(private readonly keysService: KeysService) {
     const configured = process.env.CREDENTIALS_FILE;
@@ -44,7 +45,13 @@ export class CredentialsService {
       const parsed = z.array(VerifiableCredentialSchema).parse(data);
       this.cache = parsed;
       return parsed;
-    } catch (error) {
+    } catch (error: unknown) {
+      Logger.warn(
+        `Failed to read or parse credentials file at ${this.filePath}: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+        'CredentialsService',
+      );
       this.cache = [];
       return this.cache;
     }
@@ -52,7 +59,30 @@ export class CredentialsService {
 
   private writeFile(credentials: VerifiableCredential[]) {
     this.cache = credentials;
-    fs.writeFileSync(this.filePath, JSON.stringify(credentials, null, 2));
+    // atomic write to reduce risk of partial writes
+    const tmpPath = `${this.filePath}.tmp`;
+    fs.writeFileSync(tmpPath, JSON.stringify(credentials, null, 2));
+    try {
+      fs.renameSync(tmpPath, this.filePath);
+    } catch (err) {
+      try {
+        fs.unlinkSync(tmpPath);
+      } catch (cleanupErr) {
+        Logger.warn(
+          `Failed to clean up temp file ${tmpPath}: ${
+            cleanupErr instanceof Error ? cleanupErr.message : String(cleanupErr)
+          }`,
+          'CredentialsService',
+        );
+      }
+      Logger.warn(
+        `Failed to rename temp file ${tmpPath} to ${this.filePath}: ${
+          err instanceof Error ? err.message : String(err)
+        }`,
+        'CredentialsService',
+      );
+      throw err;
+    }
   }
 
   private async getKeyPairById(id: string) {
@@ -140,9 +170,11 @@ export class CredentialsService {
     this.writeFile(filter);
   }
 
-  async verify(
-    vc: VerifiableCredential,
-  ): Promise<{ isValid: boolean; payload: any; protectedHeader: CompactJWSHeaderParameters }> {
+  async verify(vc: VerifiableCredential): Promise<{
+    isValid: boolean;
+    payload: Record<string, string>;
+    protectedHeader: CompactJWSHeaderParameters;
+  }> {
     const { proof, ...core } = vc;
     const [issuerId, kid] = proof.verificationMethod.split('#');
 

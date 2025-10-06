@@ -1,14 +1,21 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "nodenext",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "dist",
-    "types": ["node"]
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": false,
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@mini-vc-wallet-1/trpc/server": ["../../packages/trpc/server.d.ts"],
+      "@mini-vc-wallet-1/trpc/client": ["../../packages/trpc/client.d.ts"],
+      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/index.d.ts"]
+    }
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"]
 }

@@ -44,6 +44,12 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.63.0(react@18.3.1))
+      '@mini-vc-wallet-1/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@mini-vc-wallet-1/trpc':
+        specifier: workspace:*
+        version: link:../../packages/trpc
       '@radix-ui/react-label':
         specifier: ^2.1.7
         version: 2.1.7(@types/react-dom@18.3.7(@types/react@18.3.25))(@types/react@18.3.25)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -96,6 +102,9 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@server/app':
+        specifier: workspace:*
+        version: link:../server
       '@types/react':
         specifier: ^18.2.37
         version: 18.3.25
@@ -132,6 +141,12 @@ importers:
 
   apps/server:
     dependencies:
+      '@mini-vc-wallet-1/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@mini-vc-wallet-1/trpc':
+        specifier: workspace:*
+        version: link:../../packages/trpc
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.4.20(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -144,6 +159,9 @@ importers:
       '@trpc/server':
         specifier: ^11.0.0-next-beta.235
         version: 11.6.0(typescript@5.9.3)
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
       express:
         specifier: ^4.19.2
         version: 4.21.2
@@ -172,6 +190,9 @@ importers:
       '@nestjs/testing':
         specifier: ^10.0.0
         version: 10.4.20(@nestjs/common@10.4.20(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.20)(@nestjs/platform-express@10.4.20)
+      '@types/cors':
+        specifier: ^2.8.19
+        version: 2.8.19
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.23
@@ -193,6 +214,30 @@ importers:
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
+
+  packages/contracts:
+    dependencies:
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+
+  packages/trpc:
+    dependencies:
+      '@tanstack/react-query':
+        specifier: ^5
+        version: 5.90.2(react@18.3.1)
+      '@trpc/client':
+        specifier: ^11.0.0
+        version: 11.6.0(@trpc/server@11.6.0(typescript@5.9.3))(typescript@5.9.3)
+      '@trpc/react-query':
+        specifier: ^11.0.0
+        version: 11.6.0(@tanstack/react-query@5.90.2(react@18.3.1))(@trpc/client@11.6.0(@trpc/server@11.6.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.6.0(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@trpc/server':
+        specifier: ^11.0.0
+        version: 11.6.0(typescript@5.9.3)
+      react:
+        specifier: '>=18'
+        version: 18.3.1
 
 packages:
 
@@ -1073,6 +1118,9 @@ packages:
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
+
+  '@types/cors@2.8.19':
+    resolution: {integrity: sha512-mFNylyeyqN93lfe/9CSxOGREz8cpzAhH+E93xJ4xWQf62V8sQ/24reV2nyzUWM6H6Xji+GGHpkbLe7pVoUEskg==}
 
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
@@ -4391,6 +4439,10 @@ snapshots:
       '@types/node': 20.19.19
 
   '@types/connect@3.4.38':
+    dependencies:
+      '@types/node': 20.19.19
+
+  '@types/cors@2.8.19':
     dependencies:
       '@types/node': 20.19.19
 

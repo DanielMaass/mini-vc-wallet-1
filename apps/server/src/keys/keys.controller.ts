@@ -1,7 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { KeysService } from './keys.service.js';
 
-@Controller('keys')
 export class KeysController {
   constructor(private readonly keysService: KeysService) {}
 

@@ -1,17 +1,20 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
+    "outDir": "dist",
     "jsx": "react-jsx",
-    "types": ["react", "react-dom", "node"],
+    "declaration": true,
+    "declarationMap": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@mini-vc-wallet-1/server": ["../server/src/index.ts"],
-      "@mini-vc-wallet-1/server/*": ["../server/src/*"]
+      "@/*": ["src/*"],
+      "@mini-vc-wallet-1/trpc/client": ["../../packages/trpc/dist/client.d.ts"],
+      "@mini-vc-wallet-1/trpc": ["../../packages/trpc/dist/index.d.ts"],
+      "@server/app": ["../server/dist/index.d.ts"]
     }
   },
-  "include": ["src", "vite-env.d.ts"],
-  "exclude": ["dist"]
+  "include": ["src", "vite-env.d.ts"]
 }
