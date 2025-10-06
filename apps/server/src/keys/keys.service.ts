@@ -10,9 +10,19 @@ export class KeysService {
 
   constructor() {
     const configured = process.env.KEYS_FILE;
-    this.filePath = configured
+    const safeBaseDir = path.resolve(process.cwd(), 'data');
+    let candidatePath = configured
       ? path.resolve(configured)
-      : path.resolve(process.cwd(), 'data', 'keys.json');
+      : path.resolve(safeBaseDir, 'keys.json');
+    // Validate that candidatePath is within safeBaseDir
+    if (!candidatePath.startsWith(safeBaseDir + path.sep)) {
+      Logger.warn(
+        `KEYS_FILE path (${candidatePath}) is outside the allowed directory (${safeBaseDir}). Falling back to default.`,
+        'KeysService',
+      );
+      candidatePath = path.resolve(safeBaseDir, 'keys.json');
+    }
+    this.filePath = candidatePath;
     this.ensureDir();
   }
 
