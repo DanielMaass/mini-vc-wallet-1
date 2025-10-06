@@ -1,45 +1,43 @@
 import { NestFactory } from '@nestjs/core';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import * as express from 'express';
-import 'reflect-metadata';
+import cors from 'cors';
 import { AppModule } from './app.module.js';
 import { CredentialsService } from './credentials/credential.service.js';
 import { KeysService } from './keys/keys.service.js';
 import { appRouter } from './trpc/router.js';
 
+const FRONTEND = 'http://localhost:5173';
+const TRPC_PREFIX = '/api/trpc';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
 
-  // tRPC setup under /api/trpc
-  const httpAdapter = app.getHttpAdapter();
-  // Nest's ExpressAdapter#getInstance is untyped; we cast to express.Express
-  const instance = httpAdapter.getInstance() as express.Express;
-  instance.use(
-    '/api/trpc',
+  // CORS before tRPC
+  app.use(
+    TRPC_PREFIX,
+    cors({
+      origin: FRONTEND,
+      credentials: true,
+      methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'x-trpc-source', 'x-requested-with'],
+      optionsSuccessStatus: 204,
+    }),
+  );
+
+  // tRPC mounting
+  app.use(
+    TRPC_PREFIX,
     createExpressMiddleware({
       router: appRouter,
-      createContext: () => ({
-        credentialsService: app.get(CredentialsService),
-        keysService: app.get(KeysService),
+      createContext: async () => ({
+        credentialsService: await app.resolve<CredentialsService>(CredentialsService),
+        keysService: await app.resolve<KeysService>(KeysService),
       }),
     }),
   );
-  const port = process.env.SERVER_PORT
-    ? Number(process.env.SERVER_PORT)
-    : process.env.PORT
-      ? Number(process.env.PORT)
-      : 3000;
-  // Basic request logger (dev only)
-  if (process.env.NODE_ENV !== 'production') {
-    app.use((req: express.Request, _res: express.Response, next: express.NextFunction) => {
-      // eslint-disable-next-line no-console
-      console.log('[REQ]', req.method, req.url);
-      next();
-    });
-  }
-  await app.listen(port, '0.0.0.0');
-  // eslint-disable-next-line no-console
-  console.log(`[server] listening on http://localhost:${port}`);
+
+  await app.listen(Number(process.env.PORT ?? 3000), '0.0.0.0');
+  console.log(`[server] up on http://localhost:${process.env.PORT ?? 3000}`);
 }
 bootstrap();

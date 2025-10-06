@@ -7,7 +7,7 @@ import App from './App';
 import './global.css';
 
 const queryClient = new QueryClient();
-const baseUrl = import.meta.env.VITE_API_BASE ?? 'http://localhost:3000';
+const baseUrl = import.meta.env.VITE_API_BASE ?? 'http://localhost:3000/api';
 const trpcClient = trpc.createClient({
   links: [loggerLink(), httpBatchLink({ url: `${baseUrl}/trpc` })],
 });

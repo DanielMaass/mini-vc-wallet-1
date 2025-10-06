@@ -4,10 +4,9 @@ import {
   VerifiableCredential,
   VerifiableCredentialSchema,
 } from '@mini-vc-wallet-1/contracts';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Delete, Get, Param, Post } from '@nestjs/common';
 import { CredentialsService } from './credential.service.js';
 
-@Controller('credentials')
 export class CredentialsController {
   constructor(private readonly credentialsService: CredentialsService) {}
 

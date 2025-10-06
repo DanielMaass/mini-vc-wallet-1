@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "experimentalDecorators": true,
@@ -9,7 +8,8 @@
     "useDefineForClassFields": false,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
       "@mini-vc-wallet-1/trpc/server": ["../../packages/trpc/server.d.ts"],

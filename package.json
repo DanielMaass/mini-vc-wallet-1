@@ -2,12 +2,15 @@
   "name": "mini-vc-wallet-1",
   "private": true,
   "version": "0.1.0",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc -b",
-    "dev": "pnpm -r --parallel --filter ./apps... run dev",
+    "dev": "concurrently -n server,client -c blue,green \"pnpm --filter @server/app run dev\" \"pnpm --filter @client/app run dev\"",
+    "dev:server": "pnpm --filter @server/app run dev",
+    "dev:client": "pnpm --filter @client/app run dev",
     "lint": "pnpm -r run lint",
     "typecheck": "pnpm -r run typecheck",
     "format": "prettier --write .",
