@@ -62,7 +62,27 @@ export class CredentialsService {
     // atomic write to reduce risk of partial writes
     const tmpPath = `${this.filePath}.tmp`;
     fs.writeFileSync(tmpPath, JSON.stringify(credentials, null, 2));
-    fs.renameSync(tmpPath, this.filePath);
+    try {
+      fs.renameSync(tmpPath, this.filePath);
+    } catch (err) {
+      try {
+        fs.unlinkSync(tmpPath);
+      } catch (cleanupErr) {
+        Logger.warn(
+          `Failed to clean up temp file ${tmpPath}: ${
+            cleanupErr instanceof Error ? cleanupErr.message : String(cleanupErr)
+          }`,
+          'CredentialsService',
+        );
+      }
+      Logger.warn(
+        `Failed to rename temp file ${tmpPath} to ${this.filePath}: ${
+          err instanceof Error ? err.message : String(err)
+        }`,
+        'CredentialsService',
+      );
+      throw err;
+    }
   }
 
   private async getKeyPairById(id: string) {
