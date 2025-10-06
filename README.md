@@ -47,7 +47,7 @@ Hinweis: Der Client liest die Basis-URL aus VITE_API_BASE. Siehe „Umgebungsvar
 Baue alle Pakete rekursiv:
 
 ```bash
-pnpm -r run build
+pnpm build
 ```
 
 ## Lint & Format

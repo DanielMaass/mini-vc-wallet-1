@@ -54,7 +54,7 @@ export function CredentialCreatePage() {
   };
 
   return (
-    <div className="text-start space-y-12 w-lg mx-auto">
+    <div className="space-y-12 max-w-lg p-4 mx-auto">
       <div className="flex items-center gap-4">
         <Button
           title="back to previous page"
@@ -127,7 +127,7 @@ export function CredentialCreatePage() {
                   type="button"
                   size={'icon'}
                   variant="destructive"
-                  className={cn(index === 0 && 'mt-5.5')}
+                  className={cn(index === 0 ? 'mt-8' : 'mt-2')}
                   onClick={() => remove(index)}
                 >
                   <Trash />

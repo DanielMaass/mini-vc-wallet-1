@@ -34,7 +34,7 @@ export function CredentialsPage() {
   if (error) return <div>Error loading credentials</div>;
 
   return (
-    <div className="text-start space-y-4">
+    <div className="container mx-auto p-4 space-y-4">
       <div className="flex items-center gap-4">
         <h1 className="text-2xl font-bold">My Credentials</h1>
         <Button className="ms-auto" onClick={() => navigateTo('/verify')}>
@@ -49,9 +49,9 @@ export function CredentialsPage() {
             key={cred.id}
             className="flex items-center gap-2 p-2 border border-gray-300 rounded mb-2"
           >
-            <p className="grow">Type: {cred.type.join(', ')}</p>
-            <p className="grow">IssuerID: {cred.issuer}</p>
-            <p className="grow">
+            <p className="grow truncate">Type: {cred.type.join(', ')}</p>
+            <p className="grow truncate">IssuerID: {cred.issuer}</p>
+            <p className="grow truncate">
               credentialSubject:{' '}
               {Object.entries(cred.credentialSubject)
                 .map(([key, value]) => {

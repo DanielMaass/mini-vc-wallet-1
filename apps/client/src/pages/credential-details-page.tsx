@@ -21,7 +21,7 @@ export function CredentialDetailsPage() {
   if (!data) return <div>No credential found</div>;
 
   return (
-    <div className="text-start space-y-4">
+    <div className="container p-4 space-y-4">
       <div className="flex items-center gap-4">
         <Button onClick={() => navigateTo(-1)} size={'icon'} variant={'outline'}>
           <ArrowLeft />
